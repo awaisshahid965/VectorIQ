@@ -27,8 +27,8 @@ supported_extensions = [".pdf", '.md']
 all_files = get_files_in_directory(data_directory, supported_extensions)
 
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=0,
+    chunk_size=500,
+    chunk_overlap=20,
     length_function=len,
 )
 

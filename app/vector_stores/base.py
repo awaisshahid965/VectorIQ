@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
-# from typing import List
+from typing import List
 
-# from langchain.schema import Document
+from langchain.schema import Document
 
-class DatastoreService(ABC):
+class VectorStoreBase(ABC):
     
     @abstractmethod
-    def add_docs(self, docs):
+    def add_docs(self, docs: List[Document]):
         """Method to add documents to the datastore."""
         pass
 

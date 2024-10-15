@@ -1,20 +1,22 @@
+import os
+from typing import Callable, List
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader
 from langchain.schema import Document
-from typing import Callable, List
-from ..types.datastore import DatastoreService
-import os
+
+from app.vector_stores.base import VectorStoreBase
 
 class RecursiveDataIngestionService:
     
     def __init__(
         self,
-        datastore_service: DatastoreService,
+        datastore: VectorStoreBase,
         chunk_size: int = 500,
         chunk_overlap: int = 10,
         length_function: Callable[[str], int] = len
     ):
-        self.datastore_service = datastore_service
+        self.datastore = datastore
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
@@ -58,6 +60,6 @@ class RecursiveDataIngestionService:
 
         try:
             split_docs = self.text_splitter.split_documents(documents)
-            self.datastore_service.add_docs(split_docs)
+            self.datastore.add_docs(split_docs)
         except Exception as e:
             raise ValueError(f"Error splitting or adding documents: {e}")

@@ -5,7 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from app.services.recursive_data_ingestion_service import RecursiveDataIngestionService
-from app.services.deeplake_service import DeepLakeService
+from app.vector_stores.qdrant_vector_store import QdrantVectoreStore
 from app.utils.file_utils import get_files_in_directory
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -16,8 +16,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # loading env vars
 load_dotenv()
 
-datastore_service = DeepLakeService(dataset_name="stealth")
-data_ingestion_service = RecursiveDataIngestionService(datastore_service=datastore_service)
+datastore = QdrantVectoreStore(dataset_name="stealth")
+data_ingestion_service = RecursiveDataIngestionService(datastore=datastore)
 data_directory = os.path.join(SCRIPT_DIR, "..", "data")
 
 supported_extensions = [".pdf", ".md"]
@@ -51,5 +51,4 @@ def run_seed():
             print(f"Error processing file {file_path}: {e}")
 
 if __name__ == '__main__':
-    # run_seed()
-    a = 12
+    run_seed()
