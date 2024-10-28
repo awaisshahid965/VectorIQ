@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from backend.app.services.data_ingestion_service import DataIngestionService
+from app.services.data_ingestion_service import DataIngestionService
 from app.vector_stores.qdrant_vector_store import QdrantVectoreStore
 from app.utils.file_utils import get_files_in_directory
 
