@@ -1,5 +1,3 @@
-from dotenv import load_dotenv
-
 from app.vector_stores.qdrant_vector_store import QdrantVectoreStore
 
 from fastapi.responses import StreamingResponse
@@ -9,9 +7,6 @@ from langchain_openai import ChatOpenAI
 from langchain.chains import create_retrieval_chain
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
-
-# Load environment variables
-load_dotenv()
 
 router = APIRouter()
 
@@ -39,7 +34,7 @@ def answer_stream(query: str):
     except Exception as e:
         raise RuntimeError(f"Error while streaming: {str(e)}")
 
-@router.get("/query/")
+@router.get("/assistant")
 def query_endpoint(query: str):
 
     if not query:
